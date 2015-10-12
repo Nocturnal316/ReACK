@@ -12,22 +12,19 @@ app.get('/', function(req, res) {
 
 io.total = 0;
 io.on('connection', function(socket){
-  console.log('a user connected with id# ' + socket.id);
-  io.total++;
-  io.to(socket.id).emit('hi', 'You are user #' + io.total);
+  	console.log('a user connected with id# ' + socket.id);
+ 	io.total++;
+  	io.to(socket.id).emit('hi', 'You are user #' + io.total);
 
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  	io.total--;
-  });
+	socket.on('disconnect', function(){
+		console.log('user disconnected');
+		io.total--;
+	});
 
-  socket.on('jerk', function(msg){
-    console.log('jerking');
-  });
-
-  socket.on('kick', function(msg){
-    console.log('kicking');
-  });
+ 	socket.on("action", function(data) {
+ 		console.log(data);
+        socket.broadcast.emit(data.team, data.msg);
+    });
 });
 
 http.listen(3000, function(){
