@@ -1,8 +1,28 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.use(express.static(__dirname + '/'));
 
 app.get('/', function(req, res) {
-  res.send('<h1> Hello World </h1>');
+  res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+
+  socket.on('jerk', function(msg){
+    console.log('jerking');
+  });
+
+  socket.on('kick', function(msg){
+    console.log('kicking');
+  });
 });
 
 http.listen(3000, function(){
