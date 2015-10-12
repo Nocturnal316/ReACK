@@ -1,16 +1,20 @@
 window.onload = function() {
-    var socket = io();
-
+    var ioClient = io.connect('http://localhost:3000');
+    ioClient.on("hi",  function(msg){
+        alert('Confirmed, I am #' + msg);
+    });
     window.onkeypress = function (e) {
     	console.log(e.keyCode);
     	// J
     	if(e.keyCode === 106) {
-    		socket.emit('jerk', "I jerk");
+    		ioClient.emit('jerk', "I jerk");
     	}
 
     	// K
     	if(e.keyCode === 107) {
-    		socket.emit('kick', "I kick");
+    		ioClient.emit('kick', "I kick");
     	}
+
+
     }
 }

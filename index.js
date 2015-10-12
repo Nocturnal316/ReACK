@@ -9,11 +9,16 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+
+io.total = 0;
 io.on('connection', function(socket){
-  console.log('a user connected');
+  console.log('a user connected with id# ' + socket.id);
+  io.total++;
+  io.to(socket.id).emit('hi', 'You are user #' + io.total);
 
   socket.on('disconnect', function(){
     console.log('user disconnected');
+  	io.total--;
   });
 
   socket.on('jerk', function(msg){

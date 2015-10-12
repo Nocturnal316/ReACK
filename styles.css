@@ -1,0 +1,19 @@
+.team-container {
+	position: absolute;
+	left: 20%;
+	display: flex;
+}
+
+.red-team {
+	width: 30vw;
+	height: 50vh;
+	background-color:  red;
+}
+
+
+.blue-team {
+	width: 30vw;
+	height: 50vh;
+	background-color:  blue;
+
+}
